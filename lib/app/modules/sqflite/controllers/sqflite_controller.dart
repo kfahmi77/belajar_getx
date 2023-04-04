@@ -38,7 +38,29 @@ class SqfliteController extends GetxController {
     if (data.isNotEmpty) {
       allNote(Dummy.toJsonList(data));
       allNote.refresh();
+    } else {
+      allNote.clear();
+      allNote.refresh();
     }
+  }
+
+  Future<void> deleteNotes(int id) async {
+    Database db = await database.db;
+    await db.delete("notes", where: "id = ?", whereArgs: [id]);
+    getAllNotes();
+  }
+
+  Future<void> editNotes(int id) async {
+    Database db = await database.db;
+    await db.update(
+        "notes",
+        {
+          "name": titleC.text,
+          "job": descC.text,
+        },
+        where: "id = ?",
+        whereArgs: [id]);
+    getAllNotes();
   }
 
   @override

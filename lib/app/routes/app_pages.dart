@@ -1,4 +1,5 @@
 import 'package:belajar_getx/app/modules/sqflite/views/add_note_sqflite.dart';
+import 'package:belajar_getx/app/modules/sqflite/views/edit_note_sqflite_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/hive/bindings/hive_binding.dart';
@@ -31,6 +32,11 @@ class AppPages {
     GetPage(
       name: _Paths.add_note_sqflite,
       page: () => AddNoteSQFlite(),
+      binding: SqfliteBinding(),
+    ),
+    GetPage(
+      name: _Paths.editNoteSqflite,
+      page: () => EditNoteSqfliteView(),
       binding: SqfliteBinding(),
     ),
     GetPage(

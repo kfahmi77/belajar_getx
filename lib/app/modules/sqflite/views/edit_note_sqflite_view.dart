@@ -1,20 +1,40 @@
+import 'package:belajar_getx/app/data/models/dummy_model.dart';
 import 'package:belajar_getx/app/modules/sqflite/controllers/sqflite_controller.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 
-class AddNoteSQFlite extends GetView<SqfliteController> {
-  const AddNoteSQFlite({super.key});
-
+class EditNoteSqfliteView extends GetView<SqfliteController> {
+  const EditNoteSqfliteView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final SqfliteController homeC = Get.find();
-    if (controller.titleC.text.isNotEmpty && controller.descC.text.isNotEmpty) {
-      controller.titleC.clear();
-      controller.descC.clear();
+    Dummy note = Get.arguments;
+    controller.titleC = note.job == null
+        ? TextEditingController(text: "")
+        : TextEditingController(text: note.name!);
+    controller.descC = note.job == null
+        ? TextEditingController(text: "")
+        : TextEditingController(text: note.job!);
+
+    void _showAlertDialog() {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Peringatan'),
+          content: Text('Mohon isi input terlebih dahulu'),
+          actions: [
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
     }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('ADD NOTE'),
+        title: const Text('EditNoteSqfliteView'),
         centerTitle: true,
       ),
       body: ListView(
@@ -70,14 +90,18 @@ class AddNoteSQFlite extends GetView<SqfliteController> {
           Obx(
             () => ElevatedButton(
               onPressed: () async {
-                if (controller.isLoading.isFalse) {
-                  controller.addNote();
+                if (controller.isLoading.isFalse &&
+                    controller.titleC.text.isNotEmpty &&
+                    controller.descC.text.isNotEmpty) {
+                  controller.editNotes(note.id!);
                   await controller.getAllNotes();
                   Get.back();
+                } else {
+                  _showAlertDialog();
                 }
               },
               child: Text(
-                  controller.isLoading.isFalse ? "ADD NOTE" : "LOADING..."),
+                  controller.isLoading.isFalse ? "EDIT NOTE" : "LOADING..."),
             ),
           ),
         ],

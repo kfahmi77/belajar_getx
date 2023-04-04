@@ -8,6 +8,7 @@ abstract class Routes {
   static const HIVE = _Paths.HIVE;
   static const MOOR = _Paths.MOOR;
   static const add_note_sqflite = _Paths.add_note_sqflite;
+  static const editNoteSqflite = _Paths.editNoteSqflite;
 }
 
 abstract class _Paths {
@@ -17,4 +18,5 @@ abstract class _Paths {
   static const HIVE = '/hive';
   static const MOOR = '/moor';
   static const add_note_sqflite = '/add-note-sqflite';
+  static const editNoteSqflite = '/edit-note-sqflite';
 }

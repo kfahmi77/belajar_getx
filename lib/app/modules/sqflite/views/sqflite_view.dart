@@ -26,7 +26,7 @@ class SqfliteView extends GetView<SqfliteController> {
             );
           }
           return Obx(
-            () => (controller.allNote.length == 0)
+            () => (controller.allNote.isEmpty)
                 ? const Center(
                     child: Text("Tidak ada data"),
                   )
@@ -35,13 +35,19 @@ class SqfliteView extends GetView<SqfliteController> {
                     itemBuilder: (context, index) {
                       Dummy note = controller.allNote[index];
                       return ListTile(
+                        onTap: () {
+                          Get.toNamed(Routes.editNoteSqflite, arguments: note);
+                        },
                         leading: CircleAvatar(
                           child: Text("${note.id}"),
                         ),
                         title: Text("${note.name}"),
                         subtitle: Text("${note.job}"),
                         trailing: IconButton(
-                            onPressed: () {}, icon: const Icon(Icons.delete)),
+                            onPressed: () {
+                              controller.deleteNotes(note.id!);
+                            },
+                            icon: const Icon(Icons.delete)),
                       );
                     },
                   ),
