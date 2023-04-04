@@ -25,12 +25,12 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SQFLITE,
-      page: () => const SqfliteView(),
+      page: () => SqfliteView(),
       binding: SqfliteBinding(),
     ),
     GetPage(
       name: _Paths.add_note_sqflite,
-      page: () => const AddNoteSQFlite(),
+      page: () => AddNoteSQFlite(),
       binding: SqfliteBinding(),
     ),
     GetPage(
